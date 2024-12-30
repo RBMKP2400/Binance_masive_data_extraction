@@ -2,6 +2,8 @@
 
 This repository enables users to extract historical data at intervals of up to 1 second using the Binance API without the need for an account on the platform. Additionally, by utilizing Docker Compose, the program can extract information in parallel, significantly reducing extraction times.
 
+Your data will be saved in the output file, so feel free to clear the data in this file as you wish.
+
 ## Step 1: Create Configuration Files and `docker-compose.yml`
 
 1. Navigate to `manager.py` and create as many configurations as needed for the Docker containers.
