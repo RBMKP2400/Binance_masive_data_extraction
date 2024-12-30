@@ -1,0 +1,54 @@
+
+version: "3.9"
+services:
+
+      extractor_0:
+        build:
+          context: ./app
+          dockerfile: Dockerfile
+        environment:
+          - CONFIG_PATH=/config/config_1.json
+        volumes:
+          - ./config:/config
+          - ./output:/output
+    
+      extractor_1:
+        build:
+          context: ./app
+          dockerfile: Dockerfile
+        environment:
+          - CONFIG_PATH=/config/config_2.json
+        volumes:
+          - ./config:/config
+          - ./output:/output
+    
+      extractor_2:
+        build:
+          context: ./app
+          dockerfile: Dockerfile
+        environment:
+          - CONFIG_PATH=/config/config_3.json
+        volumes:
+          - ./config:/config
+          - ./output:/output
+    
+      extractor_3:
+        build:
+          context: ./app
+          dockerfile: Dockerfile
+        environment:
+          - CONFIG_PATH=/config/config_4.json
+        volumes:
+          - ./config:/config
+          - ./output:/output
+    
+      extractor_4:
+        build:
+          context: ./app
+          dockerfile: Dockerfile
+        environment:
+          - CONFIG_PATH=/config/config_5.json
+        volumes:
+          - ./config:/config
+          - ./output:/output
+    
