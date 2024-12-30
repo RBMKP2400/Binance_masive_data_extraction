@@ -23,6 +23,7 @@ Your data will be saved in the output file, so feel free to clear the data in th
 - **start_date**: Start date in the format: "dd-mm-yyyy".
 - **end_date**: End date (optional) in the format: "dd-mm-yyyy".
 - **timezone**: Timezone for adjusting the data.
+- **index**: Define the index of the config file. Every index must be diferent.
 
 ## Step 2: Start Your Docker Containers
 
