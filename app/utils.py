@@ -12,7 +12,7 @@ class Lib():
         self.timezone = timezone
         self.bars = bar_size_setting
         self.chucks = self.chucks(start_date, end_date, duration)
-        self.monthly_chunks = self.monthly_chunks(self.chucks)
+        #self.monthly_chunks = self.monthly_chunks(self.chucks)
 
     def chucks(self, start_date=None, end_date=None,  duration=None):
         # Convertimos los inputs a mayúsculas y preparamos la zona horaria
@@ -36,35 +36,35 @@ class Lib():
         current_start = start_date
 
         while current_start < end_date:
-            current_end = current_start + timedelta(minutes=chunk_size)
+            if self.bars[-1] == 'm':
+                current_end = current_start + timedelta(minutes=chunk_size)
+            elif self.bars[-1] == 'h':
+                current_end = current_start + timedelta(hours=chunk_size)
+            elif self.bars[-1] == 'd':
+                current_end = current_start + timedelta(days=chunk_size)
+            elif self.bars[-1] == 'w':
+                current_end = current_start + timedelta(weeks=chunk_size)
+            elif self.bars[-1] == 's':
+                current_end = current_start + timedelta(seconds=chunk_size)
+            else:
+                current_end = end_date
+
             if current_end > end_date:
                 current_end = end_date
+
             chunks.append((current_start, current_end))
             current_start = current_end
         return chunks
 
-    def monthly_chunks(self, chunks):
-        monthly_chunks = {}
-
-        for start, end in chunks:
-            year = start.year
-            month = start.month
-            key = f"{year}_{month:02d}"
-
-            if key not in monthly_chunks:
-                monthly_chunks[key] = []
-
-            monthly_chunks[key].append((start, end))
-
-        return monthly_chunks
-
-    def historical_data(self, monthly_chunk):
+    def historical_data(self, chucks):
 
         timezone = pytz.timezone(self.timezone)
         df = pd.DataFrame()
 
         # Extraer datos para cada chunk con barra de progreso
-        for start, end in tqdm(monthly_chunk, desc="Obteniendo datos históricos"):
+        for value in tqdm(chucks, desc="Obteniendo datos históricos"):
+            start = value[0]
+            end = value[1]
             # Convertimos las fechas a UTC
             start_date = start.astimezone(pytz.UTC)
             end_date = end.astimezone(pytz.UTC)
@@ -101,12 +101,11 @@ class Lib():
         df[['open', 'high', 'low', 'close', 'volume']] = df[['open', 'high', 'low', 'close', 'volume']].astype(float)
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
         df['timestamp'] = df['timestamp'].dt.tz_localize('UTC').dt.tz_convert(timezone)
-        df.set_index('timestamp', inplace=True)
 
-        df['year'] = df.index.year
-        df['month'] = df.index.month
-        df['day'] = df.index.day
-        df['hour'] = df.index.hour
-        df['minute'] = df.index.minute
+        df['year'] = df['timestamp'].dt.year
+        df['month'] = df['timestamp'].dt.month
+        df['day'] = df['timestamp'].dt.day
+        df['hour'] = df['timestamp'].dt.hour
+        df['minute'] = df['timestamp'].dt.minute
 
         return df

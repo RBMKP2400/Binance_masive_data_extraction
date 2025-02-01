@@ -7,7 +7,7 @@ services:
           context: ./app
           dockerfile: Dockerfile
         environment:
-          - CONFIG_PATH=/config/config_1.json
+          - CONFIG_PATH=/config/config_0.json
         volumes:
           - ./config:/config
           - ./output:/output
@@ -17,7 +17,7 @@ services:
           context: ./app
           dockerfile: Dockerfile
         environment:
-          - CONFIG_PATH=/config/config_2.json
+          - CONFIG_PATH=/config/config_1.json
         volumes:
           - ./config:/config
           - ./output:/output
@@ -27,7 +27,7 @@ services:
           context: ./app
           dockerfile: Dockerfile
         environment:
-          - CONFIG_PATH=/config/config_3.json
+          - CONFIG_PATH=/config/config_2.json
         volumes:
           - ./config:/config
           - ./output:/output
@@ -37,7 +37,7 @@ services:
           context: ./app
           dockerfile: Dockerfile
         environment:
-          - CONFIG_PATH=/config/config_4.json
+          - CONFIG_PATH=/config/config_3.json
         volumes:
           - ./config:/config
           - ./output:/output
@@ -47,7 +47,7 @@ services:
           context: ./app
           dockerfile: Dockerfile
         environment:
-          - CONFIG_PATH=/config/config_5.json
+          - CONFIG_PATH=/config/config_4.json
         volumes:
           - ./config:/config
           - ./output:/output
