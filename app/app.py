@@ -22,7 +22,7 @@ df = lib_instance.historical_data(lib_instance.chucks)
 
 unique_year_months = df[['year', 'month']].drop_duplicates().to_numpy()
 for year, month in unique_year_months:
-    key = f"{year}_{month:02d}.parquet"
+    key = f"{year}_{month:02d}"
     file_path = os.path.join(output_path, f"{symbol}_{bar_size_setting}_{key}.parquet")
 
     df_filtered = df[(df['year'] == year) & (df['month'] == month)]
